@@ -16,4 +16,8 @@ class BaseTest:
 
     def take_screenshot(self, name):
         """Take screenshot for test evidence"""
+        import os
+
+        # Create reports directory if it doesn't exist
+        os.makedirs("src/reports", exist_ok=True)
         self.driver.save_screenshot(f"src/reports/{name}.png")
