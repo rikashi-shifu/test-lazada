@@ -4,12 +4,16 @@ from selenium.webdriver.common.keys import Keys
 from src.utils.base_test import BaseTest
 from src.utils.helpers import Helpers
 import time
+from config import Config
 
 
 class TestProductSearch(BaseTest):
     """Test cases for Product Search functionality"""
 
     def test_TC_SEARCH_001_valid_keyword(self):
+        self.driver.get(Config.BASE_URL)
+        time.sleep(3)
+
         """Positive: Search with valid product keyword"""
         # Test Case ID: TC_SEARCH_001
         # Objective: Verify search returns relevant results

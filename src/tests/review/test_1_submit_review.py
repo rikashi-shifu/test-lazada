@@ -4,12 +4,16 @@ from selenium.webdriver.common.keys import Keys
 from src.utils.base_test import BaseTest
 from src.utils.helpers import Helpers
 import time
+from config import Config
 
 
 class TestSubmitReview(BaseTest):
     """Test cases for Submit Product Review functionality"""
 
     def navigate_to_product(self):
+        self.driver.get(Config.BASE_URL)
+        time.sleep(3)
+
         """Helper to navigate to product page"""
         search_box = Helpers.wait_for_element(
             self.driver, (By.XPATH, "//input[contains(@placeholder,'Search')]")

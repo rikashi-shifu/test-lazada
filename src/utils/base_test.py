@@ -10,14 +10,20 @@ class BaseTest:
     def setup_teardown(self):
         """Setup and teardown for each test"""
         self.driver = Config.get_driver()
-        self.driver.get(Config.BASE_URL)
+        # DON'T navigate to base URL here - let each test navigate where it needs
+        # self.driver.get(Config.BASE_URL)
         yield
-        self.driver.quit()
+        try:
+            self.driver.quit()
+        except Exception:
+            pass  # Ignore quit errors
 
     def take_screenshot(self, name):
         """Take screenshot for test evidence"""
         import os
 
-        # Create reports directory if it doesn't exist
         os.makedirs("src/reports", exist_ok=True)
-        self.driver.save_screenshot(f"src/reports/{name}.png")
+        try:
+            self.driver.save_screenshot(f"src/reports/{name}.png")
+        except Exception:
+            pass  # Ignore screenshot errors

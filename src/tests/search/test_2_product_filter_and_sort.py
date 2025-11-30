@@ -4,12 +4,16 @@ from selenium.webdriver.common.keys import Keys
 from src.utils.base_test import BaseTest
 from src.utils.helpers import Helpers
 import time
+from config import Config
 
 
 class TestProductFilterAndSort(BaseTest):
     """Test cases for Product Filter and Sort functionality"""
 
     def perform_search_first(self):
+        self.driver.get(Config.BASE_URL)
+        time.sleep(3)
+
         """Helper to perform initial search"""
         search_box = Helpers.wait_for_element(
             self.driver, (By.XPATH, "//input[contains(@placeholder,'Search')]")

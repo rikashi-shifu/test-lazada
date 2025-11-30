@@ -71,10 +71,9 @@ python setup.py
 Edit `.env` file with your test credentials:
 
 ```
+BASE_URL=https://www.lazada.com.my
 TEST_EMAIL=your_email@example.com
 TEST_PASSWORD=YourPassword123!
-HEADLESS=False
-BROWSER=chrome
 ```
 
 ## Running Tests

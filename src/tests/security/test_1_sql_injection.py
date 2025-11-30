@@ -4,12 +4,16 @@ from selenium.webdriver.common.keys import Keys
 from src.utils.base_test import BaseTest
 from src.utils.helpers import Helpers
 import time
+from config import Config
 
 
 class TestSQLInjection(BaseTest):
     """Test cases for SQL Injection Prevention"""
 
     def test_TC_SEC_SQL_001_login_sql_injection(self):
+        self.driver.get(Config.BASE_URL)
+        time.sleep(3)
+
         """Security: SQL injection in login form"""
         login_button = Helpers.wait_for_clickable(
             self.driver, (By.XPATH, "//a[contains(text(),'Login')]")

@@ -6,12 +6,16 @@ from src.utils.helpers import Helpers
 import time
 import threading
 from concurrent.futures import ThreadPoolExecutor
+from config import Config
 
 
 class TestDoSAttack(BaseTest):
     """Test cases for DoS Attack Prevention"""
 
     def test_TC_SEC_DOS_001_rapid_search_requests(self):
+        self.driver.get(Config.BASE_URL)
+        time.sleep(3)
+
         """Security: Rapid repeated search requests"""
         # Test Case ID: TC_SEC_DOS_001
         # Objective: Verify system handles rapid search requests without crashing
