@@ -14,9 +14,12 @@ class TestDoSAttack(BaseTest):
 
     def test_TC_SEC_DOS_001_rapid_search_requests(self):
         self.driver.get(Config.BASE_URL)
-        time.sleep(3)
+        time.sleep(3)  # Wait for page load
 
         """Security: Rapid repeated search requests"""
+        print("\n" + "=" * 80)
+        print(f"🔍 STARTING: test_TC_SEC_DOS_001_rapid_search_requests")
+        print("=" * 80)
         # Test Case ID: TC_SEC_DOS_001
         # Objective: Verify system handles rapid search requests without crashing
 
@@ -38,13 +41,19 @@ class TestDoSAttack(BaseTest):
         self.take_screenshot("sec_dos_rapid_search")
 
     def test_TC_SEC_DOS_002_repeated_login_attempts(self):
+        self.driver.get(Config.BASE_URL)
+        time.sleep(3)  # Wait for page load
+
         """Security: Multiple rapid login attempts"""
+        print("\n" + "=" * 80)
+        print(f"🔍 STARTING: test_TC_SEC_DOS_002_repeated_login_attempts")
+        print("=" * 80)
         # Test Case ID: TC_SEC_DOS_002
         # Objective: Verify system handles multiple login attempts
 
         for attempt in range(5):
             self.driver.get(self.driver.current_url)
-            time.sleep(1)
+            time.sleep(1)  # Short wait
 
             login_button = Helpers.wait_for_clickable(
                 self.driver, (By.XPATH, "//a[contains(text(),'Login')]")
@@ -52,7 +61,7 @@ class TestDoSAttack(BaseTest):
             if login_button:
                 login_button.click()
 
-            time.sleep(1)
+            time.sleep(1)  # Short wait
 
             email_field = Helpers.wait_for_element(self.driver, (By.ID, "email"))
             password_field = self.driver.find_element(By.ID, "password")
@@ -62,7 +71,7 @@ class TestDoSAttack(BaseTest):
                 password_field.send_keys("wrongpass")
                 password_field.send_keys(Keys.RETURN)
 
-            time.sleep(1)
+            time.sleep(1)  # Short wait
 
         # Check if rate limiting or CAPTCHA appears
         page_exists = Helpers.is_element_present(self.driver, (By.XPATH, "//body"))
@@ -70,7 +79,13 @@ class TestDoSAttack(BaseTest):
         self.take_screenshot("sec_dos_repeated_login")
 
     def test_TC_SEC_DOS_003_rapid_cart_operations(self):
+        self.driver.get(Config.BASE_URL)
+        time.sleep(3)  # Wait for page load
+
         """Security: Rapid add/remove cart operations"""
+        print("\n" + "=" * 80)
+        print(f"🔍 STARTING: test_TC_SEC_DOS_003_rapid_cart_operations")
+        print("=" * 80)
         # Test Case ID: TC_SEC_DOS_003
         # Objective: Verify cart handles rapid operations
 
@@ -81,7 +96,7 @@ class TestDoSAttack(BaseTest):
             search_box.send_keys("laptop")
             search_box.send_keys(Keys.RETURN)
 
-        time.sleep(2)
+        time.sleep(2)  # Wait for elements
 
         first_product = Helpers.wait_for_clickable(
             self.driver, (By.XPATH, "(//div[contains(@class,'product')])[1]")
@@ -89,7 +104,7 @@ class TestDoSAttack(BaseTest):
         if first_product:
             first_product.click()
 
-        time.sleep(1)
+        time.sleep(1)  # Short wait
 
         # Rapidly click add to cart
         for i in range(5):
@@ -105,7 +120,13 @@ class TestDoSAttack(BaseTest):
         self.take_screenshot("sec_dos_rapid_cart")
 
     def test_TC_SEC_DOS_004_page_refresh_flood(self):
+        self.driver.get(Config.BASE_URL)
+        time.sleep(3)  # Wait for page load
+
         """Security: Rapid page refresh requests"""
+        print("\n" + "=" * 80)
+        print(f"🔍 STARTING: test_TC_SEC_DOS_004_page_refresh_flood")
+        print("=" * 80)
         # Test Case ID: TC_SEC_DOS_004
         # Objective: Verify system handles rapid page refreshes
 
@@ -122,7 +143,13 @@ class TestDoSAttack(BaseTest):
         self.take_screenshot("sec_dos_page_refresh")
 
     def test_TC_SEC_DOS_005_large_payload_submission(self):
+        self.driver.get(Config.BASE_URL)
+        time.sleep(3)  # Wait for page load
+
         """Security: Submit extremely large data payload"""
+        print("\n" + "=" * 80)
+        print(f"🔍 STARTING: test_TC_SEC_DOS_005_large_payload_submission")
+        print("=" * 80)
         # Test Case ID: TC_SEC_DOS_005
         # Objective: Verify system handles large data submissions
 
@@ -133,7 +160,7 @@ class TestDoSAttack(BaseTest):
             search_box.send_keys("laptop")
             search_box.send_keys(Keys.RETURN)
 
-        time.sleep(2)
+        time.sleep(2)  # Wait for elements
 
         first_product = Helpers.wait_for_clickable(
             self.driver, (By.XPATH, "(//div[contains(@class,'product')])[1]")
@@ -141,7 +168,7 @@ class TestDoSAttack(BaseTest):
         if first_product:
             first_product.click()
 
-        time.sleep(1)
+        time.sleep(1)  # Short wait
 
         write_review = Helpers.wait_for_clickable(
             self.driver, (By.XPATH, "//button[contains(text(),'Write Review')]")
@@ -149,7 +176,7 @@ class TestDoSAttack(BaseTest):
         if write_review:
             write_review.click()
 
-        time.sleep(1)
+        time.sleep(1)  # Short wait
 
         # Try to submit very large text
         review_text = Helpers.wait_for_element(self.driver, (By.XPATH, "//textarea"))
@@ -157,7 +184,7 @@ class TestDoSAttack(BaseTest):
             large_text = "A" * 100000  # 100KB of text
             review_text.send_keys(large_text[:5000])  # Selenium limitation
 
-        time.sleep(1)
+        time.sleep(1)  # Short wait
 
         page_responsive = Helpers.is_element_present(self.driver, (By.XPATH, "//body"))
         assert page_responsive, "System failed to handle large payload"

@@ -14,7 +14,7 @@ class TestUpdateCartItem(BaseTest):
         """Helper method to add item to cart before testing updates"""
         # NAVIGATE TO BASE URL FIRST
         self.driver.get(Config.BASE_URL)
-        time.sleep(3)
+        time.sleep(3)  # Wait for page load
 
         search_box = Helpers.wait_for_element(
             self.driver, (By.XPATH, "//input[contains(@placeholder,'Search')]")
@@ -23,7 +23,7 @@ class TestUpdateCartItem(BaseTest):
             search_box.send_keys("laptop")
             search_box.send_keys(Keys.RETURN)
 
-        time.sleep(2)
+        time.sleep(2)  # Wait for elements
 
         first_product = Helpers.wait_for_clickable(
             self.driver, (By.XPATH, "(//div[contains(@class,'product')])[1]")
@@ -31,7 +31,7 @@ class TestUpdateCartItem(BaseTest):
         if first_product:
             first_product.click()
 
-        time.sleep(1)
+        time.sleep(1)  # Short wait
 
         add_to_cart_btn = Helpers.wait_for_clickable(
             self.driver, (By.XPATH, "//button[contains(text(),'Add to Cart')]")
@@ -39,7 +39,7 @@ class TestUpdateCartItem(BaseTest):
         if add_to_cart_btn:
             add_to_cart_btn.click()
 
-        time.sleep(1)
+        time.sleep(1)  # Short wait
 
         # Go to cart
         cart_icon = Helpers.wait_for_clickable(
@@ -48,10 +48,13 @@ class TestUpdateCartItem(BaseTest):
         if cart_icon:
             cart_icon.click()
 
-        time.sleep(1)
+        time.sleep(1)  # Short wait
 
     def test_TC_CART_UPDATE_001_increase_quantity(self):
         """Positive: Increase item quantity in cart"""
+        print("\n" + "=" * 80)
+        print(f"🔍 STARTING: test_TC_CART_UPDATE_001_increase_quantity")
+        print("=" * 80)
         self.add_item_to_cart_first()
 
         # Increase quantity
@@ -62,12 +65,15 @@ class TestUpdateCartItem(BaseTest):
         if plus_button:
             plus_button.click()
 
-        time.sleep(1)
+        time.sleep(1)  # Short wait
 
         self.take_screenshot("cart_update_increase")
 
     def test_TC_CART_UPDATE_002_decrease_quantity(self):
         """Positive: Decrease item quantity in cart"""
+        print("\n" + "=" * 80)
+        print(f"🔍 STARTING: test_TC_CART_UPDATE_002_decrease_quantity")
+        print("=" * 80)
         self.add_item_to_cart_first()
 
         # First increase to have room to decrease
@@ -78,7 +84,7 @@ class TestUpdateCartItem(BaseTest):
         if plus_button:
             plus_button.click()
 
-        time.sleep(1)
+        time.sleep(1)  # Short wait
 
         # Decrease quantity
         minus_button = Helpers.wait_for_clickable(
@@ -88,12 +94,15 @@ class TestUpdateCartItem(BaseTest):
         if minus_button:
             minus_button.click()
 
-        time.sleep(1)
+        time.sleep(1)  # Short wait
 
         self.take_screenshot("cart_update_decrease")
 
     def test_TC_CART_UPDATE_003_change_variation(self):
         """Positive: Change product variation (size/color)"""
+        print("\n" + "=" * 80)
+        print(f"🔍 STARTING: test_TC_CART_UPDATE_003_change_variation")
+        print("=" * 80)
         self.add_item_to_cart_first()
 
         # Click edit/change variation
@@ -104,12 +113,15 @@ class TestUpdateCartItem(BaseTest):
         if edit_button:
             edit_button.click()
 
-        time.sleep(1)
+        time.sleep(1)  # Short wait
 
         self.take_screenshot("cart_update_variation")
 
     def test_TC_CART_UPDATE_004_quantity_below_minimum(self):
         """Negative: Set quantity below minimum (0 or negative)"""
+        print("\n" + "=" * 80)
+        print(f"🔍 STARTING: test_TC_CART_UPDATE_004_quantity_below_minimum")
+        print("=" * 80)
         self.add_item_to_cart_first()
 
         # Try to set quantity to 0
@@ -121,12 +133,15 @@ class TestUpdateCartItem(BaseTest):
             quantity_field.send_keys("0")
             quantity_field.send_keys(Keys.TAB)
 
-        time.sleep(1)
+        time.sleep(1)  # Short wait
 
         self.take_screenshot("cart_update_zero_quantity")
 
     def test_TC_CART_UPDATE_005_quantity_exceeds_stock(self):
         """Negative: Set quantity exceeding available stock"""
+        print("\n" + "=" * 80)
+        print(f"🔍 STARTING: test_TC_CART_UPDATE_005_quantity_exceeds_stock")
+        print("=" * 80)
         self.add_item_to_cart_first()
 
         # Try to set very high quantity
@@ -138,6 +153,6 @@ class TestUpdateCartItem(BaseTest):
             quantity_field.send_keys("9999")
             quantity_field.send_keys(Keys.TAB)
 
-        time.sleep(1)
+        time.sleep(1)  # Short wait
 
         self.take_screenshot("cart_update_exceed_stock")

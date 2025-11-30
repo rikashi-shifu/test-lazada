@@ -12,7 +12,7 @@ class TestProductFilterAndSort(BaseTest):
 
     def perform_search_first(self):
         self.driver.get(Config.BASE_URL)
-        time.sleep(3)
+        time.sleep(3)  # Wait for page load
 
         """Helper to perform initial search"""
         search_box = Helpers.wait_for_element(
@@ -21,10 +21,13 @@ class TestProductFilterAndSort(BaseTest):
         if search_box:
             search_box.send_keys("laptop")
             search_box.send_keys(Keys.RETURN)
-        time.sleep(2)
+        time.sleep(2)  # Wait for elements
 
     def test_TC_FILTER_001_price_range_filter(self):
         """Positive: Apply price range filter"""
+        print("\n" + "=" * 80)
+        print(f"🔍 STARTING: test_TC_FILTER_001_price_range_filter")
+        print("=" * 80)
         # Test Case ID: TC_FILTER_001
         # Objective: Verify price filtering works correctly
 
@@ -41,7 +44,7 @@ class TestProductFilterAndSort(BaseTest):
         if price_filter:
             price_filter.click()
 
-        time.sleep(1)
+        time.sleep(1)  # Short wait
 
         # Select price range
         price_option = Helpers.wait_for_clickable(
@@ -50,12 +53,15 @@ class TestProductFilterAndSort(BaseTest):
         if price_option:
             price_option.click()
 
-        time.sleep(2)
+        time.sleep(2)  # Wait for elements
 
         self.take_screenshot("filter_price_range")
 
     def test_TC_FILTER_002_category_filter(self):
         """Positive: Apply category filter"""
+        print("\n" + "=" * 80)
+        print(f"🔍 STARTING: test_TC_FILTER_002_category_filter")
+        print("=" * 80)
         # Test Case ID: TC_FILTER_002
         # Objective: Verify category filtering works
 
@@ -67,7 +73,7 @@ class TestProductFilterAndSort(BaseTest):
         if category_filter:
             category_filter.click()
 
-        time.sleep(1)
+        time.sleep(1)  # Short wait
 
         category_option = Helpers.wait_for_clickable(
             self.driver, (By.XPATH, "(//div[contains(@class,'category-item')])[1]")
@@ -75,12 +81,15 @@ class TestProductFilterAndSort(BaseTest):
         if category_option:
             category_option.click()
 
-        time.sleep(2)
+        time.sleep(2)  # Wait for elements
 
         self.take_screenshot("filter_category")
 
     def test_TC_SORT_001_price_low_to_high(self):
         """Positive: Sort by price ascending"""
+        print("\n" + "=" * 80)
+        print(f"🔍 STARTING: test_TC_SORT_001_price_low_to_high")
+        print("=" * 80)
         # Test Case ID: TC_SORT_001
         # Objective: Verify price sorting low to high
 
@@ -96,7 +105,7 @@ class TestProductFilterAndSort(BaseTest):
         if sort_dropdown:
             sort_dropdown.click()
 
-        time.sleep(1)
+        time.sleep(1)  # Short wait
 
         sort_option = Helpers.wait_for_clickable(
             self.driver,
@@ -108,12 +117,15 @@ class TestProductFilterAndSort(BaseTest):
         if sort_option:
             sort_option.click()
 
-        time.sleep(2)
+        time.sleep(2)  # Wait for elements
 
         self.take_screenshot("sort_price_asc")
 
     def test_TC_SORT_002_price_high_to_low(self):
         """Positive: Sort by price descending"""
+        print("\n" + "=" * 80)
+        print(f"🔍 STARTING: test_TC_SORT_002_price_high_to_low")
+        print("=" * 80)
         # Test Case ID: TC_SORT_002
         # Objective: Verify price sorting high to low
 
@@ -129,7 +141,7 @@ class TestProductFilterAndSort(BaseTest):
         if sort_dropdown:
             sort_dropdown.click()
 
-        time.sleep(1)
+        time.sleep(1)  # Short wait
 
         sort_option = Helpers.wait_for_clickable(
             self.driver,
@@ -141,12 +153,15 @@ class TestProductFilterAndSort(BaseTest):
         if sort_option:
             sort_option.click()
 
-        time.sleep(2)
+        time.sleep(2)  # Wait for elements
 
         self.take_screenshot("sort_price_desc")
 
     def test_TC_FILTER_003_multiple_filters(self):
         """Positive: Apply multiple filters simultaneously"""
+        print("\n" + "=" * 80)
+        print(f"🔍 STARTING: test_TC_FILTER_003_multiple_filters")
+        print("=" * 80)
         # Test Case ID: TC_FILTER_003
         # Objective: Verify multiple filter combination
 
@@ -158,7 +173,7 @@ class TestProductFilterAndSort(BaseTest):
         )
         if price_filter:
             price_filter.click()
-            time.sleep(1)
+            time.sleep(1)  # Short wait
 
             price_option = Helpers.wait_for_clickable(
                 self.driver, (By.XPATH, "(//label[contains(@class,'price')])[1]")
@@ -166,7 +181,7 @@ class TestProductFilterAndSort(BaseTest):
             if price_option:
                 price_option.click()
 
-        time.sleep(1)
+        time.sleep(1)  # Short wait
 
         # Apply brand filter
         brand_filter = Helpers.wait_for_clickable(
@@ -174,7 +189,7 @@ class TestProductFilterAndSort(BaseTest):
         )
         if brand_filter:
             brand_filter.click()
-            time.sleep(1)
+            time.sleep(1)  # Short wait
 
             brand_option = Helpers.wait_for_clickable(
                 self.driver, (By.XPATH, "(//label[contains(@class,'brand')])[1]")
@@ -182,6 +197,6 @@ class TestProductFilterAndSort(BaseTest):
             if brand_option:
                 brand_option.click()
 
-        time.sleep(2)
+        time.sleep(2)  # Wait for elements
 
         self.take_screenshot("filter_multiple")

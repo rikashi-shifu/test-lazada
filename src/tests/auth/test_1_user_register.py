@@ -15,9 +15,12 @@ class TestUserRegister(BaseTest):
         Test ID: TC_AUTH_REG_001
         Test Case: User Registration with Valid Data
         """
+        print("\n" + "=" * 80)
+        print(f"🔍 STARTING: test_TC_AUTH_REG_001_valid_registration")
+        print("=" * 80)
         # Navigate to Lazada homepage
         self.driver.get(Config.BASE_URL)
-        time.sleep(3)
+        time.sleep(3)  # Wait for page load
 
         # Look for "Sign Up" or "Register" link
         try:
@@ -44,11 +47,11 @@ class TestUserRegister(BaseTest):
 
             if signup_link:
                 signup_link.click()
-                time.sleep(3)
+                time.sleep(3)  # Wait for page load
             else:
                 # If can't find signup, try going directly to signup URL
                 self.driver.get("https://member.lazada.com.my/user/register")
-                time.sleep(3)
+                time.sleep(3)  # Wait for page load
 
             # Now look for registration form
             phone_selectors = [
@@ -74,7 +77,7 @@ class TestUserRegister(BaseTest):
 
             if phone_field:
                 phone_field.send_keys("0123456789")
-                time.sleep(1)
+                time.sleep(1)  # Short wait
 
                 # Take screenshot showing we found the form
                 self.take_screenshot("registration_form_found")
@@ -94,16 +97,28 @@ class TestUserRegister(BaseTest):
 
     def test_TC_AUTH_REG_002_duplicate_email(self):
         """Test registration with duplicate email"""
+        print("\n" + "=" * 80)
+        print(f"🔍 STARTING: test_TC_AUTH_REG_002_duplicate_email")
+        print("=" * 80)
         pytest.skip("Registration requires CAPTCHA bypass")
 
     def test_TC_AUTH_REG_003_weak_password(self):
         """Test registration with weak password"""
+        print("\n" + "=" * 80)
+        print(f"🔍 STARTING: test_TC_AUTH_REG_003_weak_password")
+        print("=" * 80)
         pytest.skip("Registration requires CAPTCHA bypass")
 
     def test_TC_AUTH_REG_004_invalid_email_format(self):
         """Test registration with invalid email format"""
+        print("\n" + "=" * 80)
+        print(f"🔍 STARTING: test_TC_AUTH_REG_004_invalid_email_format")
+        print("=" * 80)
         pytest.skip("Registration requires CAPTCHA bypass")
 
     def test_TC_AUTH_REG_005_empty_required_fields(self):
         """Test registration form validation"""
+        print("\n" + "=" * 80)
+        print(f"🔍 STARTING: test_TC_AUTH_REG_005_empty_required_fields")
+        print("=" * 80)
         pytest.skip("Registration requires CAPTCHA bypass")

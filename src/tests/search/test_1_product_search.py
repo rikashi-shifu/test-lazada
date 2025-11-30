@@ -12,9 +12,12 @@ class TestProductSearch(BaseTest):
 
     def test_TC_SEARCH_001_valid_keyword(self):
         self.driver.get(Config.BASE_URL)
-        time.sleep(3)
+        time.sleep(3)  # Wait for page load
 
         """Positive: Search with valid product keyword"""
+        print("\n" + "=" * 80)
+        print(f"🔍 STARTING: test_TC_SEARCH_001_valid_keyword")
+        print("=" * 80)
         # Test Case ID: TC_SEARCH_001
         # Objective: Verify search returns relevant results
 
@@ -25,7 +28,7 @@ class TestProductSearch(BaseTest):
             search_box.send_keys("laptop")
             search_box.send_keys(Keys.RETURN)
 
-        time.sleep(2)
+        time.sleep(2)  # Wait for elements
 
         # Verify results displayed
         results = Helpers.is_element_present(
@@ -38,6 +41,9 @@ class TestProductSearch(BaseTest):
 
     def test_TC_SEARCH_002_partial_keyword(self):
         """Positive: Search with partial keyword"""
+        print("\n" + "=" * 80)
+        print(f"🔍 STARTING: test_TC_SEARCH_002_partial_keyword")
+        print("=" * 80)
         # Test Case ID: TC_SEARCH_002
         # Objective: Verify partial match search works
 
@@ -48,7 +54,7 @@ class TestProductSearch(BaseTest):
             search_box.send_keys("lap")
             search_box.send_keys(Keys.RETURN)
 
-        time.sleep(2)
+        time.sleep(2)  # Wait for elements
 
         results = Helpers.is_element_present(
             self.driver, (By.XPATH, "//div[contains(@class,'product')]")
@@ -59,6 +65,9 @@ class TestProductSearch(BaseTest):
 
     def test_TC_SEARCH_003_no_results(self):
         """Negative: Search with non-existent product"""
+        print("\n" + "=" * 80)
+        print(f"🔍 STARTING: test_TC_SEARCH_003_no_results")
+        print("=" * 80)
         # Test Case ID: TC_SEARCH_003
         # Objective: Verify appropriate message for no results
 
@@ -69,7 +78,7 @@ class TestProductSearch(BaseTest):
             search_box.send_keys("xyznonexistentproduct123")
             search_box.send_keys(Keys.RETURN)
 
-        time.sleep(2)
+        time.sleep(2)  # Wait for elements
 
         no_results_msg = Helpers.is_element_present(
             self.driver,
@@ -84,6 +93,9 @@ class TestProductSearch(BaseTest):
 
     def test_TC_SEARCH_004_special_characters(self):
         """Negative: Search with special characters"""
+        print("\n" + "=" * 80)
+        print(f"🔍 STARTING: test_TC_SEARCH_004_special_characters")
+        print("=" * 80)
         # Test Case ID: TC_SEARCH_004
         # Objective: Verify system handles special characters
 
@@ -94,7 +106,7 @@ class TestProductSearch(BaseTest):
             search_box.send_keys("@#$%^&*()")
             search_box.send_keys(Keys.RETURN)
 
-        time.sleep(2)
+        time.sleep(2)  # Wait for elements
 
         # Should show no results or handle gracefully
         page_loaded = Helpers.is_element_present(self.driver, (By.XPATH, "//body"))
@@ -104,6 +116,9 @@ class TestProductSearch(BaseTest):
 
     def test_TC_SEARCH_005_empty_search(self):
         """Negative: Submit empty search"""
+        print("\n" + "=" * 80)
+        print(f"🔍 STARTING: test_TC_SEARCH_005_empty_search")
+        print("=" * 80)
         # Test Case ID: TC_SEARCH_005
         # Objective: Verify validation for empty search
 
@@ -113,7 +128,7 @@ class TestProductSearch(BaseTest):
         if search_box:
             search_box.send_keys(Keys.RETURN)
 
-        time.sleep(1)
+        time.sleep(1)  # Short wait
 
         # Should either show validation or all products
         page_exists = Helpers.is_element_present(self.driver, (By.XPATH, "//body"))

@@ -12,7 +12,7 @@ class TestSubmitReview(BaseTest):
 
     def navigate_to_product(self):
         self.driver.get(Config.BASE_URL)
-        time.sleep(3)
+        time.sleep(3)  # Wait for page load
 
         """Helper to navigate to product page"""
         search_box = Helpers.wait_for_element(
@@ -22,7 +22,7 @@ class TestSubmitReview(BaseTest):
             search_box.send_keys("laptop")
             search_box.send_keys(Keys.RETURN)
 
-        time.sleep(2)
+        time.sleep(2)  # Wait for elements
 
         first_product = Helpers.wait_for_clickable(
             self.driver, (By.XPATH, "(//div[contains(@class,'product')])[1]")
@@ -30,10 +30,13 @@ class TestSubmitReview(BaseTest):
         if first_product:
             first_product.click()
 
-        time.sleep(1)
+        time.sleep(1)  # Short wait
 
     def test_TC_REVIEW_SUBMIT_001_valid_review(self):
         """Positive: Submit review with all fields filled"""
+        print("\n" + "=" * 80)
+        print(f"🔍 STARTING: test_TC_REVIEW_SUBMIT_001_valid_review")
+        print("=" * 80)
         # Test Case ID: TC_REVIEW_SUBMIT_001
         # Objective: Verify user can submit complete review
 
@@ -73,12 +76,15 @@ class TestSubmitReview(BaseTest):
         if submit_btn:
             submit_btn.click()
 
-        time.sleep(2)
+        time.sleep(2)  # Wait for elements
 
         self.take_screenshot("review_submit_valid")
 
     def test_TC_REVIEW_SUBMIT_002_rating_only(self):
         """Positive: Submit review with rating only (no text)"""
+        print("\n" + "=" * 80)
+        print(f"🔍 STARTING: test_TC_REVIEW_SUBMIT_002_rating_only")
+        print("=" * 80)
         # Test Case ID: TC_REVIEW_SUBMIT_002
         # Objective: Verify rating-only submission
 
@@ -90,7 +96,7 @@ class TestSubmitReview(BaseTest):
         if write_review_btn:
             write_review_btn.click()
 
-        time.sleep(1)
+        time.sleep(1)  # Short wait
 
         # Select rating only
         star_rating = Helpers.wait_for_clickable(
@@ -105,12 +111,15 @@ class TestSubmitReview(BaseTest):
         if submit_btn:
             submit_btn.click()
 
-        time.sleep(2)
+        time.sleep(2)  # Wait for elements
 
         self.take_screenshot("review_submit_rating_only")
 
     def test_TC_REVIEW_SUBMIT_003_no_rating(self):
         """Negative: Attempt to submit without rating"""
+        print("\n" + "=" * 80)
+        print(f"🔍 STARTING: test_TC_REVIEW_SUBMIT_003_no_rating")
+        print("=" * 80)
         # Test Case ID: TC_REVIEW_SUBMIT_003
         # Objective: Verify rating is required
 
@@ -122,7 +131,7 @@ class TestSubmitReview(BaseTest):
         if write_review_btn:
             write_review_btn.click()
 
-        time.sleep(1)
+        time.sleep(1)  # Short wait
 
         # Enter text without rating
         review_text = Helpers.wait_for_element(
@@ -137,7 +146,7 @@ class TestSubmitReview(BaseTest):
         if submit_btn:
             submit_btn.click()
 
-        time.sleep(1)
+        time.sleep(1)  # Short wait
 
         # Verify error message
         error_present = Helpers.is_element_present(
@@ -152,6 +161,9 @@ class TestSubmitReview(BaseTest):
 
     def test_TC_REVIEW_SUBMIT_004_excessive_text(self):
         """Boundary: Submit review with maximum character limit"""
+        print("\n" + "=" * 80)
+        print(f"🔍 STARTING: test_TC_REVIEW_SUBMIT_004_excessive_text")
+        print("=" * 80)
         # Test Case ID: TC_REVIEW_SUBMIT_004
         # Objective: Verify character limit enforcement
 
@@ -163,7 +175,7 @@ class TestSubmitReview(BaseTest):
         if write_review_btn:
             write_review_btn.click()
 
-        time.sleep(1)
+        time.sleep(1)  # Short wait
 
         star_rating = Helpers.wait_for_clickable(
             self.driver, (By.XPATH, "(//span[contains(@class,'star')])[5]")
@@ -179,12 +191,15 @@ class TestSubmitReview(BaseTest):
             long_text = "A" * 5000  # Excessive text
             review_text.send_keys(long_text)
 
-        time.sleep(1)
+        time.sleep(1)  # Short wait
 
         self.take_screenshot("review_submit_excessive_text")
 
     def test_TC_REVIEW_SUBMIT_005_special_characters(self):
         """Negative: Submit review with special characters"""
+        print("\n" + "=" * 80)
+        print(f"🔍 STARTING: test_TC_REVIEW_SUBMIT_005_special_characters")
+        print("=" * 80)
         # Test Case ID: TC_REVIEW_SUBMIT_005
         # Objective: Verify handling of special characters
 
@@ -196,7 +211,7 @@ class TestSubmitReview(BaseTest):
         if write_review_btn:
             write_review_btn.click()
 
-        time.sleep(1)
+        time.sleep(1)  # Short wait
 
         star_rating = Helpers.wait_for_clickable(
             self.driver, (By.XPATH, "(//span[contains(@class,'star')])[3]")
@@ -216,6 +231,6 @@ class TestSubmitReview(BaseTest):
         if submit_btn:
             submit_btn.click()
 
-        time.sleep(2)
+        time.sleep(2)  # Wait for elements
 
         self.take_screenshot("review_submit_special_chars")
